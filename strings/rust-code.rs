@@ -39,6 +39,8 @@ fn chars_by_count(inp: *const c_char) -> *const c_char {
     task.run(|| {
 
         // wrap the C string pointer in something we can handle
+        // we can't own the pointer, or there will be a segfault
+        // (I assume FFI::Raw wants to keep owning it)
         let inp_cstring = CString::new(inp, false);
 
         // calculate our sorted string into another C string
@@ -47,7 +49,7 @@ fn chars_by_count(inp: *const c_char) -> *const c_char {
         // get the pointer for our result string
         ptr = out_cstring.unwrap();
 
-    }).destroy();
+    }).drop();
 
     // return the pointer to the string
     ptr

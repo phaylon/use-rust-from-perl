@@ -15,7 +15,7 @@ my $chars_by_count = FFI::Raw->new(
     FFI::Raw::str,
 );
 
-is $chars_by_count->("abcabdacba"), "abcd", 'correct output';
+is $chars_by_count->("aabcdacbba"), "abcd", 'correct output';
 is $chars_by_count->(""), "", 'correct output for empty string';
 
 done_testing;
