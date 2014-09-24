@@ -27,7 +27,7 @@ fn process_string(text: &str) -> String {
 }
 
 #[no_mangle]
-pub unsafe extern "C"
+pub extern "C"
 fn chars_by_count(inp: *const c_char) -> *const c_char {
 
     // This is where we'll store the pointer for the output string
@@ -41,13 +41,13 @@ fn chars_by_count(inp: *const c_char) -> *const c_char {
         // Wrap the C string pointer in something we can handle.
         // We can't own the pointer, or there will be a segfault
         // (I assume FFI::Raw wants to keep owning it).
-        let inp_cstring = CString::new(inp, false);
+        let inp_cstring = unsafe { CString::new(inp, false) };
 
         // Calculate our sorted string into another C string
         let out_cstring = process_string(inp_cstring.as_str().unwrap()).to_c_str();
 
         // Get the pointer for our result string
-        ptr = out_cstring.unwrap();
+        ptr = unsafe { out_cstring.unwrap() };
 
     }).drop();
 
