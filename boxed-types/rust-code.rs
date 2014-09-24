@@ -11,7 +11,7 @@ impl Rectangle {
 }
 
 #[no_mangle]
-pub unsafe extern "C"
+pub extern "C"
 fn make_rectangle(width: uint, height: uint) -> Box<Rectangle> {
 
     // We return a box to a rectangle. This will allocate space
@@ -28,7 +28,7 @@ fn make_rectangle(width: uint, height: uint) -> Box<Rectangle> {
 }
 
 #[no_mangle]
-pub unsafe extern "C"
+pub extern "C"
 fn get_rectangle_area(rectangle: &Rectangle) -> uint {
 
     // We take our pointer as argument, but this time we'll
@@ -38,7 +38,7 @@ fn get_rectangle_area(rectangle: &Rectangle) -> uint {
 }
 
 #[no_mangle]
-pub unsafe extern "C"
+pub extern "C"
 fn drop_rectangle(_rectangle: Box<Rectangle>) {
     // Here we take the rectangle as a box again. This means
     // we take ownership of it and destroy it.
