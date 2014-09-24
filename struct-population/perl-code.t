@@ -25,7 +25,8 @@ my $result_ptr = FFI::Raw::MemPtr
     ->new_from_buf($result_init, length $result_init);
 
 # Build our set of values
-my $values_init = pack 'i' x 10, (23, -42, 109, -33, 77, -13, 36, -59, 82, 0);
+my $values_init = pack 'i' x 10,
+    (23, -42, 109, -33, 77, -13, 36, -59, 82, 0);
 my $values_ptr = FFI::Raw::MemPtr
     ->new_from_buf($values_init, length $values_init);
 
